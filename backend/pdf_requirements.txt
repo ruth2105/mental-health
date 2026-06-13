@@ -1,0 +1,5 @@
+# PDF Processing Libraries
+PyPDF2==3.0.1          # Basic PDF reading/writing
+reportlab==4.0.7       # PDF generation
+pdfplumber==0.11.0     # Advanced text extraction (better for tables/complex layouts)
+Pillow==10.1.0         # Image processing (required by reportlab)

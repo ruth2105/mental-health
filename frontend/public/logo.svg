@@ -1,0 +1,44 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle with Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c9cbf;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#a8b5c8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c4a5a5;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0f4f8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="200" height="200" rx="40" fill="url(#bgGradient)"/>
+  
+  <!-- Brain/Mind Icon -->
+  <g transform="translate(100, 70)">
+    <!-- Left hemisphere -->
+    <path d="M -25 0 Q -35 -15, -25 -25 Q -15 -30, -5 -25 Q 0 -20, 0 -10 L 0 10 Q 0 20, -5 25 Q -15 30, -25 25 Q -35 15, -25 0 Z" 
+          fill="white" opacity="0.9"/>
+    <!-- Right hemisphere -->
+    <path d="M 25 0 Q 35 -15, 25 -25 Q 15 -30, 5 -25 Q 0 -20, 0 -10 L 0 10 Q 0 20, 5 25 Q 15 30, 25 25 Q 35 15, 25 0 Z" 
+          fill="white" opacity="0.9"/>
+    <!-- Connection lines -->
+    <line x1="-5" y1="-15" x2="5" y2="-15" stroke="white" stroke-width="2" opacity="0.7"/>
+    <line x1="-5" y1="0" x2="5" y2="0" stroke="white" stroke-width="2" opacity="0.7"/>
+    <line x1="-5" y1="15" x2="5" y2="15" stroke="white" stroke-width="2" opacity="0.7"/>
+    <!-- Neural dots -->
+    <circle cx="-15" cy="-10" r="3" fill="white" opacity="0.8"/>
+    <circle cx="15" cy="-10" r="3" fill="white" opacity="0.8"/>
+    <circle cx="-15" cy="10" r="3" fill="white" opacity="0.8"/>
+    <circle cx="15" cy="10" r="3" fill="white" opacity="0.8"/>
+  </g>
+  
+  <!-- EWQE Text -->
+  <text x="100" y="145" font-family="Arial, sans-serif" font-size="48" font-weight="bold" 
+        text-anchor="middle" fill="url(#textGradient)">EWQE</text>
+  
+  <!-- Tagline -->
+  <text x="100" y="170" font-family="Arial, sans-serif" font-size="14" 
+        text-anchor="middle" fill="white" opacity="0.9">Mental Wellness</text>
+</svg>

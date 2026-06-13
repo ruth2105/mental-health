@@ -1,0 +1,521 @@
+/* Ethiopian (Habesha) Design System */
+:root {
+  /* Ethiopian Flag Colors */
+  --eth-green: #009639;
+  --eth-yellow: #FFCD00;
+  --eth-red: #DA020E;
+  
+  /* Traditional Ethiopian Colors */
+  --eth-gold: #D4AF37;
+  --eth-bronze: #CD7F32;
+  --eth-earth: #8B4513;
+  --eth-coffee: #6F4E37;
+  --eth-injera: #F5DEB3;
+  --eth-teff: #D2B48C;
+  
+  /* Modern Ethiopian Palette */
+  --eth-primary: #009639;
+  --eth-primary-light: #00B844;
+  --eth-primary-dark: #007A2E;
+  --eth-secondary: #FFCD00;
+  --eth-accent: #DA020E;
+  --eth-neutral: #8B7355;
+  
+  /* Semantic Colors */
+  --eth-success: var(--eth-green);
+  --eth-warning: var(--eth-yellow);
+  --eth-error: var(--eth-red);
+  --eth-info: #2563EB;
+  
+  /* Background Colors */
+  --eth-bg-primary: #FEFEFE;
+  --eth-bg-secondary: #F8F6F0;
+  --eth-bg-tertiary: #F0EDE5;
+  --eth-bg-dark: #2D2A24;
+  
+  /* Text Colors */
+  --eth-text-primary: #1A1A1A;
+  --eth-text-secondary: #4A4A4A;
+  --eth-text-muted: #6B6B6B;
+  --eth-text-light: #FFFFFF;
+  
+  /* Border Colors */
+  --eth-border-light: #E5E2D8;
+  --eth-border-medium: #D1CCC0;
+  --eth-border-dark: #8B7355;
+  
+  /* Shadows */
+  --eth-shadow-sm: 0 1px 3px rgba(139, 115, 85, 0.1);
+  --eth-shadow-md: 0 4px 12px rgba(139, 115, 85, 0.15);
+  --eth-shadow-lg: 0 8px 25px rgba(139, 115, 85, 0.2);
+  --eth-shadow-xl: 0 12px 40px rgba(139, 115, 85, 0.25);
+  
+  /* Gradients */
+  --eth-gradient-primary: linear-gradient(135deg, var(--eth-green) 0%, var(--eth-primary-light) 100%);
+  --eth-gradient-secondary: linear-gradient(135deg, var(--eth-yellow) 0%, var(--eth-gold) 100%);
+  --eth-gradient-warm: linear-gradient(135deg, var(--eth-injera) 0%, var(--eth-teff) 100%);
+  --eth-gradient-earth: linear-gradient(135deg, var(--eth-coffee) 0%, var(--eth-earth) 100%);
+  
+  /* Typography */
+  --eth-font-primary: 'Inter', 'Noto Sans Ethiopic', sans-serif;
+  --eth-font-heading: 'Poppins', 'Noto Sans Ethiopic', sans-serif;
+  --eth-font-ethiopic: 'Noto Sans Ethiopic', sans-serif;
+  
+  /* Spacing */
+  --eth-space-xs: 0.25rem;
+  --eth-space-sm: 0.5rem;
+  --eth-space-md: 1rem;
+  --eth-space-lg: 1.5rem;
+  --eth-space-xl: 2rem;
+  --eth-space-2xl: 3rem;
+  --eth-space-3xl: 4rem;
+  
+  /* Border Radius */
+  --eth-radius-sm: 0.375rem;
+  --eth-radius-md: 0.5rem;
+  --eth-radius-lg: 0.75rem;
+  --eth-radius-xl: 1rem;
+  --eth-radius-2xl: 1.5rem;
+  
+  /* Transitions */
+  --eth-transition-fast: 150ms ease-in-out;
+  --eth-transition-normal: 250ms ease-in-out;
+  --eth-transition-slow: 350ms ease-in-out;
+}
+
+/* Ethiopian Pattern Backgrounds */
+.eth-pattern-cross {
+  background-image: 
+    repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 150, 57, 0.1) 10px, rgba(0, 150, 57, 0.1) 20px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255, 205, 0, 0.1) 10px, rgba(255, 205, 0, 0.1) 20px);
+}
+
+.eth-pattern-weave {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 150, 57, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(255, 205, 0, 0.1) 2px, transparent 2px);
+  background-size: 20px 20px;
+}
+
+.eth-pattern-traditional {
+  background-image: 
+    linear-gradient(45deg, rgba(139, 115, 85, 0.1) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(139, 115, 85, 0.1) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(139, 115, 85, 0.1) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(139, 115, 85, 0.1) 75%);
+  background-size: 30px 30px;
+  background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+}
+
+/* Ethiopian Card Styles */
+.eth-card {
+  background: var(--eth-bg-primary);
+  border: 1px solid var(--eth-border-light);
+  border-radius: var(--eth-radius-lg);
+  box-shadow: var(--eth-shadow-md);
+  transition: all var(--eth-transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.eth-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--eth-gradient-primary);
+}
+
+.eth-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--eth-shadow-lg);
+}
+
+.eth-card-premium {
+  background: var(--eth-gradient-warm);
+  border: 2px solid var(--eth-gold);
+}
+
+.eth-card-premium::before {
+  background: var(--eth-gradient-secondary);
+  height: 6px;
+}
+
+/* Ethiopian Button Styles */
+.eth-btn {
+  font-family: var(--eth-font-primary);
+  font-weight: 600;
+  border-radius: var(--eth-radius-md);
+  transition: all var(--eth-transition-normal);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--eth-space-sm);
+}
+
+.eth-btn-primary {
+  background: var(--eth-gradient-primary);
+  color: var(--eth-text-light);
+  padding: var(--eth-space-md) var(--eth-space-xl);
+}
+
+.eth-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--eth-shadow-md);
+}
+
+.eth-btn-secondary {
+  background: var(--eth-gradient-secondary);
+  color: var(--eth-text-primary);
+  padding: var(--eth-space-md) var(--eth-space-xl);
+}
+
+.eth-btn-outline {
+  background: transparent;
+  border: 2px solid var(--eth-primary);
+  color: var(--eth-primary);
+  padding: calc(var(--eth-space-md) - 2px) calc(var(--eth-space-xl) - 2px);
+}
+
+.eth-btn-outline:hover {
+  background: var(--eth-primary);
+  color: var(--eth-text-light);
+}
+
+/* Ethiopian Typography */
+.eth-heading {
+  font-family: var(--eth-font-heading);
+  font-weight: 700;
+  color: var(--eth-text-primary);
+  line-height: 1.2;
+}
+
+.eth-heading-xl {
+  font-size: 3rem;
+  background: var(--eth-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.eth-heading-lg {
+  font-size: 2.25rem;
+  color: var(--eth-primary-dark);
+}
+
+.eth-heading-md {
+  font-size: 1.875rem;
+  color: var(--eth-primary);
+}
+
+.eth-text-ethiopic {
+  font-family: var(--eth-font-ethiopic);
+  font-size: 1.125rem;
+  color: var(--eth-neutral);
+}
+
+/* Ethiopian Navigation */
+.eth-nav {
+  background: var(--eth-bg-primary);
+  border-bottom: 3px solid var(--eth-primary);
+  box-shadow: var(--eth-shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.eth-nav-item {
+  color: var(--eth-text-secondary);
+  font-weight: 500;
+  padding: var(--eth-space-md) var(--eth-space-lg);
+  border-radius: var(--eth-radius-md);
+  transition: all var(--eth-transition-fast);
+  position: relative;
+}
+
+.eth-nav-item:hover {
+  color: var(--eth-primary);
+  background: rgba(0, 150, 57, 0.1);
+}
+
+.eth-nav-item.active {
+  color: var(--eth-primary);
+  background: var(--eth-gradient-warm);
+}
+
+.eth-nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: var(--eth-primary);
+  border-radius: 2px;
+}
+
+/* Ethiopian Form Elements */
+.eth-input {
+  font-family: var(--eth-font-primary);
+  background: var(--eth-bg-primary);
+  border: 2px solid var(--eth-border-medium);
+  border-radius: var(--eth-radius-md);
+  padding: var(--eth-space-md);
+  color: var(--eth-text-primary);
+  transition: all var(--eth-transition-normal);
+}
+
+.eth-input:focus {
+  outline: none;
+  border-color: var(--eth-primary);
+  box-shadow: 0 0 0 3px rgba(0, 150, 57, 0.1);
+}
+
+.eth-select {
+  background: var(--eth-bg-primary);
+  border: 2px solid var(--eth-border-medium);
+  border-radius: var(--eth-radius-md);
+  padding: var(--eth-space-md);
+  color: var(--eth-text-primary);
+}
+
+/* Ethiopian Status Indicators */
+.eth-status-success {
+  background: rgba(0, 150, 57, 0.1);
+  color: var(--eth-success);
+  border: 1px solid rgba(0, 150, 57, 0.3);
+}
+
+.eth-status-warning {
+  background: rgba(255, 205, 0, 0.1);
+  color: #B8860B;
+  border: 1px solid rgba(255, 205, 0, 0.3);
+}
+
+.eth-status-error {
+  background: rgba(218, 2, 14, 0.1);
+  color: var(--eth-error);
+  border: 1px solid rgba(218, 2, 14, 0.3);
+}
+
+/* Ethiopian Animations */
+@keyframes eth-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes eth-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes eth-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.eth-animate-fade-in {
+  animation: eth-fade-in 0.6s ease-out;
+}
+
+.eth-animate-slide-in {
+  animation: eth-slide-in 0.5s ease-out;
+}
+
+.eth-animate-pulse {
+  animation: eth-pulse 2s infinite;
+}
+
+/* Ethiopian Layout */
+.eth-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--eth-space-lg);
+}
+
+.eth-section {
+  padding: var(--eth-space-3xl) 0;
+}
+
+.eth-grid {
+  display: grid;
+  gap: var(--eth-space-xl);
+}
+
+.eth-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.eth-grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.eth-grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Ethiopian Responsive Design */
+@media (max-width: 768px) {
+  .eth-heading-xl {
+    font-size: 2.25rem;
+  }
+  
+  .eth-heading-lg {
+    font-size: 1.875rem;
+  }
+  
+  .eth-container {
+    padding: 0 var(--eth-space-md);
+  }
+  
+  .eth-section {
+    padding: var(--eth-space-2xl) 0;
+  }
+}
+
+/* Ethiopian Utility Classes */
+.eth-text-center { text-align: center; }
+.eth-text-left { text-align: left; }
+.eth-text-right { text-align: right; }
+
+.eth-flex { display: flex; }
+.eth-flex-col { flex-direction: column; }
+.eth-flex-row { flex-direction: row; }
+.eth-items-center { align-items: center; }
+.eth-justify-center { justify-content: center; }
+.eth-justify-between { justify-content: space-between; }
+
+.eth-w-full { width: 100%; }
+.eth-h-full { height: 100%; }
+.eth-min-h-screen { min-height: 100vh; }
+
+.eth-p-2 { padding: var(--eth-space-sm); }
+.eth-p-4 { padding: var(--eth-space-md); }
+.eth-p-6 { padding: var(--eth-space-lg); }
+.eth-p-8 { padding: var(--eth-space-xl); }
+
+.eth-m-2 { margin: var(--eth-space-sm); }
+.eth-m-4 { margin: var(--eth-space-md); }
+.eth-m-6 { margin: var(--eth-space-lg); }
+.eth-m-8 { margin: var(--eth-space-xl); }
+
+.eth-mb-2 { margin-bottom: var(--eth-space-sm); }
+.eth-mb-4 { margin-bottom: var(--eth-space-md); }
+.eth-mb-6 { margin-bottom: var(--eth-space-lg); }
+.eth-mb-8 { margin-bottom: var(--eth-space-xl); }
+
+.eth-mt-2 { margin-top: var(--eth-space-sm); }
+.eth-mt-4 { margin-top: var(--eth-space-md); }
+.eth-mt-6 { margin-top: var(--eth-space-lg); }
+.eth-mt-8 { margin-top: var(--eth-space-xl); }
+
+/* Ethiopian Cultural Elements */
+.eth-flag-stripe {
+  background: linear-gradient(to right, 
+    var(--eth-green) 0% 33.33%, 
+    var(--eth-yellow) 33.33% 66.66%, 
+    var(--eth-red) 66.66% 100%);
+  height: 4px;
+  width: 100%;
+}
+
+.eth-cultural-border {
+  border: 2px solid var(--eth-gold);
+  border-radius: var(--eth-radius-lg);
+  position: relative;
+}
+
+.eth-cultural-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--eth-gradient-primary);
+  border-radius: var(--eth-radius-lg);
+  z-index: -1;
+}
+
+/* Ethiopian Loading States */
+.eth-skeleton {
+  background: linear-gradient(90deg, 
+    var(--eth-injera) 25%, 
+    var(--eth-teff) 50%, 
+    var(--eth-injera) 75%);
+  background-size: 200% 100%;
+  animation: eth-skeleton 1.5s infinite;
+}
+
+@keyframes eth-skeleton {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Ethiopian Interactive States */
+.eth-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--eth-shadow-lg);
+  transition: all var(--eth-transition-normal);
+}
+
+.eth-hover-glow:hover {
+  box-shadow: 0 0 20px rgba(0, 150, 57, 0.3);
+  transition: all var(--eth-transition-normal);
+}
+
+.eth-focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 150, 57, 0.2);
+}
+
+/* Ethiopian Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --eth-bg-primary: #1A1A1A;
+    --eth-bg-secondary: #2D2A24;
+    --eth-bg-tertiary: #3A3530;
+    --eth-text-primary: #FFFFFF;
+    --eth-text-secondary: #E5E5E5;
+    --eth-text-muted: #B0B0B0;
+    --eth-border-light: #3A3530;
+    --eth-border-medium: #4A453F;
+  }
+}
+
+/* Ethiopian Print Styles */
+@media print {
+  .eth-pattern-cross,
+  .eth-pattern-weave,
+  .eth-pattern-traditional {
+    background: none !important;
+  }
+  
+  .eth-card {
+    border: 1px solid var(--eth-border-dark) !important;
+    box-shadow: none !important;
+  }
+}

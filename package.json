@@ -1,0 +1,20 @@
+{
+  "name": "mental-health-platform",
+  "version": "1.0.0",
+  "description": "Mental Health Therapy Platform",
+  "scripts": {
+    "setup": "scripts\\dev-setup.bat",
+    "dev": "scripts\\start-dev.bat",
+    "test": "cd backend && pytest && cd ../frontend && npm test",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
+  },
+  "keywords": [
+    "mental-health",
+    "therapy",
+    "healthcare"
+  ],
+  "author": "",
+  "license": "MIT"
+}
