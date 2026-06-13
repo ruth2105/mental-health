@@ -1,9 +1,11 @@
 from django.contrib import admin
-from django.urls import path, include
-from django.http import JsonResponse
+from django.urls import path, include, re_path
+from django.http import JsonResponse, FileResponse
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
+import os
 
 # Try to import Simple JWT token views; leave None if not installed
 TokenObtainPairView = None
@@ -31,12 +33,20 @@ def api_root(request):
         "token_refresh": f"{base}/api/auth/token/refresh/",
     })
 
+def serve_react(request, path=''):
+    """Serve the React app's index.html for all non-API routes (SPA routing)."""
+    index_path = os.path.join(settings.STATICFILES_DIRS[0] if hasattr(settings, 'STATICFILES_DIRS') and settings.STATICFILES_DIRS else settings.STATIC_ROOT, 'frontend', 'index.html')
+    # Try staticfiles/frontend/index.html
+    index_path = os.path.join(settings.BASE_DIR, 'staticfiles', 'frontend', 'index.html')
+    if os.path.exists(index_path):
+        with open(index_path, 'rb') as f:
+            return FileResponse(f, content_type='text/html')
+    # Fallback for dev: redirect to Vite dev server
+    from django.http import HttpResponseRedirect
+    return HttpResponseRedirect('http://localhost:5173/')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    # During local development redirect root to the frontend dev server (adjust port if needed)
-    # Default frontend dev server runs on Vite's port 5173 in this project; change if you run on a different port.
-    path('', RedirectView.as_view(url='http://localhost:5173/', permanent=False)),
 
     # API root and app includes
     path('api/', api_root, name='api_root'),
@@ -49,29 +59,24 @@ urlpatterns = [
     path('api/video/', include('video.urls')),
     path('api/chat/', include('chat.urls')),
     path('api/testimonials/', include('testimonials.urls')),
+
+    # Serve React frontend for all other routes (must be last)
+    re_path(r'^(?!api/|admin/|static/|media/).*$', serve_react),
 ]
 
 # Add token endpoints only if Simple JWT is available
 if TokenObtainPairView is not None and TokenRefreshView is not None:
-    # Prefer to use the project's users.LoginView (which may wire a custom
-    # serializer accepting `email`) if available. Fall back to the default
-    # TokenObtainPairView when not.
     try:
         from users.views import LoginView
         token_obtain_view = LoginView.as_view()
     except Exception:
         token_obtain_view = TokenObtainPairView.as_view()
 
-    urlpatterns += [
-        path('api/auth/token/', token_obtain_view, name='token_obtain_pair'),
-        path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    ]
+    urlpatterns.insert(-1, path('api/auth/token/', token_obtain_view, name='token_obtain_pair'))
+    urlpatterns.insert(-1, path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'))
 else:
-    # Fallback: point token paths to the users login URL to avoid import errors
-    urlpatterns += [
-        path('api/auth/token/', RedirectView.as_view(url='/api/users/login/', permanent=False)),
-        path('api/auth/token/refresh/', RedirectView.as_view(url='/api/users/login/', permanent=False)),
-    ]
+    urlpatterns.insert(-1, path('api/auth/token/', RedirectView.as_view(url='/api/users/login/', permanent=False)))
+    urlpatterns.insert(-1, path('api/auth/token/refresh/', RedirectView.as_view(url='/api/users/login/', permanent=False)))
 
 # Serve media files in development
 if settings.DEBUG:

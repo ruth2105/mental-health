@@ -15,4 +15,9 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Output built files into backend/staticfiles/frontend for Django to serve
+    outDir: "../backend/staticfiles/frontend",
+    emptyOutDir: true,
+  },
 }));
