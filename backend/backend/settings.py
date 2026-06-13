@@ -1,6 +1,7 @@
 import os
+import dj_database_url
 from pathlib import Path
-from decouple import Config, RepositoryEnv
+from decouple import Config, RepositoryEnv, config as env_config
 from datetime import timedelta
 
 # =======================
@@ -12,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # LOAD ENVIRONMENT VARIABLES
 # =======================
 env_path = BASE_DIR / ".env"
-config = Config(RepositoryEnv(env_path)) if env_path.exists() else None
+config = Config(RepositoryEnv(env_path)) if env_path.exists() else env_config
 
 # =======================
 # SECURITY SETTINGS
@@ -88,11 +89,12 @@ INSTALLED_APPS = [
 # MIDDLEWARE
 # =======================
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',   # add near top, before CommonMiddleware
-    'security.middleware.SecurityMiddleware',  # Custom security middleware
-    'security.middleware.AuditLogMiddleware',  # Audit logging
-    'security.middleware.DataProtectionMiddleware',  # GDPR/HIPAA compliance
+    'corsheaders.middleware.CorsMiddleware',
+    'security.middleware.SecurityMiddleware',
+    'security.middleware.AuditLogMiddleware',
+    'security.middleware.DataProtectionMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -137,13 +139,18 @@ CHANNEL_LAYERS = {
 # =======================
 # DATABASE
 # =======================
-# Using SQLite for development. Switch to MySQL/PostgreSQL in production
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASE_URL = config('DATABASE_URL', default=None)
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # =======================
 # PASSWORD VALIDATION
@@ -169,6 +176,7 @@ USE_TZ = True
 # =======================
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -192,9 +200,8 @@ FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:5173')
 # =======================
 # CORS SETTINGS
 # =======================
-CORS_ALLOW_ALL_ORIGINS = True  # Change in production
+CORS_ALLOW_ALL_ORIGINS = DEBUG  # Only allow all in development
 
-# Allow local frontend during development
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
@@ -202,7 +209,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 
-# Allow credentials for CORS
+# Add production frontend from env
+PRODUCTION_FRONTEND = config('CORS_ALLOWED_ORIGINS', default='')
+if PRODUCTION_FRONTEND:
+    for origin in PRODUCTION_FRONTEND.split(','):
+        origin = origin.strip()
+        if origin and origin not in CORS_ALLOWED_ORIGINS:
+            CORS_ALLOWED_ORIGINS.append(origin)
+
 CORS_ALLOW_CREDENTIALS = True
 
 # =======================
